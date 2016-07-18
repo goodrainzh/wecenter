@@ -2,12 +2,11 @@
 
 [ $DEBUG ] && set -x
 
-Dirs="system/config"
+Dirs="system tmp cache uploads"
 PermanentDir="/data"
 AppDir="/app"
-UserCfg="${PermanentDir}/system/config/config.yaml"
+UserCfg="${AppDir}/system/config/database.php"
 InstallFile="${AppDir}/install/index.php"
-#UpgradeFile="${AppDir}/www/upgrade.php"
 
 
 # 在持久化存储中创建需要的目录
@@ -24,9 +23,8 @@ do
       [ ! -d ${PermanentDir}/$subdir ] && mkdir -pv ${PermanentDir}/$subdir
       [ -d ${AppDir}/${d} ] && mv ${AppDir}/${d} ${PermanentDir}/$subdir
     fi
-  
   else
-    mv ${AppDir}/${d} ${AppDir}/${d}.bak
+    [ -d ${AppDir}/${d} ] && mv ${AppDir}/${d} ${AppDir}/${d}.bak
   fi
   ln -s ${PermanentDir}/${d} ${AppDir}/${d}
 done
@@ -34,7 +32,6 @@ done
 # 如果存在my.php 清理install.php和upgrade.php 文件
 if [ -f $UserCfg ];then
   [ -f $InstallFile ] && rm -f $InstallFile
-  #[ -f $UpgradeFile ] && rm -f $UpgradeFile
 fi
 
 
