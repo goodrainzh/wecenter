@@ -39,4 +39,4 @@ fi
 
 
 # 启动web server
-vendor/bin/heroku-php-nginx
+vendor/bin/heroku-php-nginx -F fpm_custom.conf
