@@ -1,0 +1,3 @@
+* * * * * sh -c "[ -f /app/system/config/database.php ] && \
+		mv /app/system/config/database.php /app/.config/ && \
+		ln -s /app/.config/database.php /app/system/config/database.php"
